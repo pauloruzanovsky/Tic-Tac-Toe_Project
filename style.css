@@ -1,0 +1,16 @@
+.gameBoard {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 150px;
+    background: black;
+    gap: 5px;
+}
+
+.gameBoard>*{
+    display: grid;
+    height: 50px;
+    align-items: center;
+    justify-items: center;
+    background: white;
+
+}

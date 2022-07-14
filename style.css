@@ -1,3 +1,73 @@
+/* CSS RESET */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  /* footer support */
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--grey);
+  color: var(--black);
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  word-wrap: break-word;
+  /* footer support */
+  margin-bottom: 100px;
+
+}
+
+button,
+input {
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type='text'],
+input[type='number'] {
+  cursor: text;
+}
+
+/* CSS START */
+@font-face{
+    font-family: Poppins;
+    src: url(./fonts/Poppins-Regular.ttf);
+    font-weight: 400;
+}
+@font-face{
+    font-family: Poppins;
+    src: url(./fonts/Poppins-Medium.ttf);
+    font-weight: 500;
+}
+@font-face{
+    font-family: Poppins;
+    src: url(./fonts/Poppins-SemiBold.ttf);
+    font-weight: 600;
+}
+@font-face{
+  font-family: Poppins;
+  src: url(./fonts/Poppins-Bold.ttf);
+  font-weight: 900;
+}
+html {
+    font-family: Poppins;
+}
+
+
 .gameBoard {
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -8,9 +78,77 @@
 
 .gameBoard>*{
     display: grid;
-    height: 50px;
     align-items: center;
     justify-items: center;
-    background: white;
+    background: gold;
+    font-size: 60px;
+    width: 130px;
+    height: 130px;
 
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: rgb(255, 235, 123);
+    padding: 10px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: gold;
+    padding: 30px;
+    width: 600px;
+    box-shadow: 0px 0px 5px 0px black;
+}
+header {
+    background: rgb(0, 0, 0);
+    width: 600px;
+    font-size: 60px;
+    padding: 10px;
+    color: white;
+    box-shadow: 0px 0px 5px 0px black;
+    font-weight: 500;
+}
+
+
+.gameBoard {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 30px;
+}
+
+.ending-message {
+    height: 50px;
+}
+
+.reset {
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    background: white;
+}
+
+.reset:hover {
+    box-shadow: 0px 0px 5px 0px black;
+}
+
+.reset:active {
+    background: black;
+    color: white;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  
+  }

@@ -9,6 +9,7 @@ let bottomLeft = document.querySelector(".bottomLeft");
 let bottomCenter = document.querySelector(".bottomCenter");
 let bottomRight = document.querySelector(".bottomRight");
 let resetButton = document.querySelector('[type=reset]')
+let endingMessage = document.querySelector('.ending-message');
 let topRow = [topLeft.innerText, topCenter.innerText, topRight.innerText];
 let midRow = [midLeft.innerText, midCenter.innerText, midRight.innerText];
 let bottomRow = [bottomLeft.innerText, bottomCenter.innerText, bottomRight.innerText];
@@ -32,6 +33,7 @@ function updateVariables() {
      bottomLeft = document.querySelector(".bottomLeft");
      bottomCenter = document.querySelector(".bottomCenter");
      bottomRight = document.querySelector(".bottomRight");
+     endingMessage = document.querySelector('.ending-message');
      topRow = [topLeft.innerText, topCenter.innerText, topRight.innerText];
      midRow = [midLeft.innerText, midCenter.innerText, midRight.innerText];
      bottomRow = [bottomLeft.innerText, bottomCenter.innerText, bottomRight.innerText];
@@ -46,6 +48,7 @@ function updateVariables() {
 // Reset inner text of each board position to blank;
 function resetGame() {
         gameOver = false;
+        endingMessage.innerText = '';
         positions.forEach(position => {
             position.innerText = '';
         })
@@ -94,12 +97,17 @@ function winConditionCheck(array) {
 
         if(someoneWon >= 0) {
             if(allRows[someoneWon].indexOf('O') === 0) {
-                return console.log('Player 1 Won!')
+                endingMessage.innerText = 'player 1 won!';
+                updateVariables();
+                return 
             }
-            return console.log('Player 2 Won!')
+            endingMessage.innerText = 'player 2 won!';
+            updateVariables();
+            return 
 
         }
-        return console.log('It\'s a tie!')
+        endingMessage.innerText = 'it\'s a tie!';
+        updateVariables();
     }
 
 

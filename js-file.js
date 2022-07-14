@@ -20,6 +20,8 @@ let rightDiagonal = [topRight.innerText, midCenter.innerText, bottomLeft.innerTe
 let allRows = [topRow, midRow, bottomRow, leftColumn, midColumn, rightColumn, leftDiagonal, rightDiagonal];
 let lastPlay = '';
 let gameOver = false;
+
+// Refreshes all board position values
 function updateVariables() {
      topLeft = document.querySelector(".topLeft");
      topCenter = document.querySelector(".topCenter");
@@ -41,9 +43,18 @@ function updateVariables() {
      allRows = [topRow, midRow, bottomRow, leftColumn, midColumn, rightColumn, leftDiagonal, rightDiagonal];
 }
 
+// Reset inner text of each board position to blank;
 function resetGame() {
-    gameOver = false;
-}
+        gameOver = false;
+        positions.forEach(position => {
+            position.innerText = '';
+        })
+        updateVariables();
+        lastPlay = '';
+        changePositionValue();
+    };
+resetButton.addEventListener('click', resetGame);
+
 // Returns true if the row has three equal symbols
 function threeInARow(array) {
     const result = array.every(element => {
@@ -51,52 +62,76 @@ function threeInARow(array) {
             return true;
         }
     });
-    return result;
-
+    const tie = array.every(element => {
+        if (element !== '') {
+            return true;
+        }
+    });
+    if(result) {
+        return 'won'
+    } 
+    if(tie) {
+        return 'tie'
+    }
+    return false
 }
 
 // Checks for a row that has three equal symbols, returns true if does
 function winConditionCheck(array) {
     const winArray = array.map(element => threeInARow(element));
-    console.log(winArray);
-    const  someoneWon = winArray.indexOf(true);
-    if(someoneWon >= 0) {
+    console.log('winArray: ' + winArray);
+    const  someoneWon = winArray.indexOf('won');
+    const tieCheck = winArray.every(element => {
+        if (element === 'tie') {
+            return true;
+        }
+    });
+    if(someoneWon >= 0 || tieCheck) {
         gameOver = true;
         positions.forEach(position => {
-            position.replaceWith(position.cloneNode(true));
+            position.removeEventListener('click', clickAction);
         })
-        if(allRows[someoneWon].indexOf('O') === 0) {
-            return console.log('Player 1 Won!')
-        }
-        return console.log('Player 2 Won!')
 
+        if(someoneWon >= 0) {
+            if(allRows[someoneWon].indexOf('O') === 0) {
+                return console.log('Player 1 Won!')
+            }
+            return console.log('Player 2 Won!')
+
+        }
+        return console.log('It\'s a tie!')
     }
-    return console.log('someone won: ' + (someoneWon >= 0));
+
+
     };
 
-// Actions on click: updates position value, refresh variables and checks if someone won
-(function changePositionValue() {
+// Actions that happen when a position on the board is clicked
+function clickAction() {
+    if (this.innerText === '') {
+        if (lastPlay === '' || lastPlay === 'X') {
+            this.innerText = 'O';
+            lastPlay = 'O';
+        } else if (lastPlay === 'O') {
+            this.innerText = 'X';
+            lastPlay = 'X';
+        };
+
+    }
+    updateVariables();
+    console.log(allRows);
+    winConditionCheck(allRows);
+
+}
+
+// Attaches clickAction on each position's click event listener
+function changePositionValue() {
     positions.forEach(position => {
         if( gameOver === false) {
-            position.addEventListener('click', function() {
-                if (position.innerText === '') {
-                    if (lastPlay === '' || lastPlay === 'X') {
-                        position.innerText = 'O'
-                        lastPlay = 'O';
-                    } else if ( lastPlay === 'O') {
-                        position.innerText = 'X';
-                        lastPlay = 'X';
-                    };
-
-                }
-                updateVariables();
-                console.log(allRows);
-                winConditionCheck(allRows);
-
-            })
+            position.addEventListener('click', clickAction)
         }
     });
 
 
-})();
+};
+changePositionValue();
 

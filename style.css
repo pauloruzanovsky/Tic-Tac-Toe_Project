@@ -122,6 +122,10 @@ header {
     margin-bottom: 30px;
 }
 
+.position:active {
+    transition: 0.5s;
+}
+
 .ending-message {
     height: 50px;
 }

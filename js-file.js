@@ -9,7 +9,13 @@ let bottomLeft = document.querySelector(".bottomLeft");
 let bottomCenter = document.querySelector(".bottomCenter");
 let bottomRight = document.querySelector(".bottomRight");
 let resetButton = document.querySelector('[type=reset]')
-let endingMessage = document.querySelector('.ending-message');
+let message = document.querySelector('.message');
+let menuOverlay = document.querySelector('.menu-overlay');
+let startButton = document.querySelector('.start-game');
+let menuButton = document.querySelector('.back-to-menu');
+let form = document.querySelector('form');
+let player1 = document.querySelector('#player-1').value;
+let player2 = document.querySelector('#player-2').value;
 let topRow = [topLeft.innerText, topCenter.innerText, topRight.innerText];
 let midRow = [midLeft.innerText, midCenter.innerText, midRight.innerText];
 let bottomRow = [bottomLeft.innerText, bottomCenter.innerText, bottomRight.innerText];
@@ -22,8 +28,30 @@ let allRows = [topRow, midRow, bottomRow, leftColumn, midColumn, rightColumn, le
 let lastPlay = '';
 let gameOver = false;
 
+
+function startGame(e) {
+    if(form.checkValidity()) {
+        e.preventDefault();
+        player1 = document.querySelector('#player-1').value;
+        player2 = document.querySelector('#player-2').value;
+        resetGame();
+        menuOverlay.classList.remove('active');
+        document.forms[0].reset();
+
+    }
+}
+startButton.addEventListener('click',startGame);
+
+function backToMenu() {
+    resetGame();
+    menuOverlay.classList.add('active');
+
+}
+menuButton.addEventListener('click', backToMenu);
+
 // Refreshes all board position values
 function updateVariables() {
+     positions = document.querySelectorAll('.position');
      topLeft = document.querySelector(".topLeft");
      topCenter = document.querySelector(".topCenter");
      topRight = document.querySelector(".topRight");
@@ -33,7 +61,12 @@ function updateVariables() {
      bottomLeft = document.querySelector(".bottomLeft");
      bottomCenter = document.querySelector(".bottomCenter");
      bottomRight = document.querySelector(".bottomRight");
-     endingMessage = document.querySelector('.ending-message');
+     resetButton = document.querySelector('[type=reset]')
+     message = document.querySelector('.message');
+     menuOverlay = document.querySelector('.menu-overlay');
+     startButton = document.querySelector('.start-game');
+     menuButton = document.querySelector('.back-to-menu');
+     form = document.querySelector('form');
      topRow = [topLeft.innerText, topCenter.innerText, topRight.innerText];
      midRow = [midLeft.innerText, midCenter.innerText, midRight.innerText];
      bottomRow = [bottomLeft.innerText, bottomCenter.innerText, bottomRight.innerText];
@@ -48,7 +81,7 @@ function updateVariables() {
 // Reset inner text of each board position to blank;
 function resetGame() {
         gameOver = false;
-        endingMessage.innerText = '';
+        message.innerText = `${player1}'s turn`
         positions.forEach(position => {
             position.innerText = '';
         })
@@ -97,17 +130,18 @@ function winConditionCheck(array) {
 
         if(someoneWon >= 0) {
             if(allRows[someoneWon].indexOf('O') === 0) {
-                endingMessage.innerText = 'player 1 won!';
+                message.innerText = `${player1} won!`;
                 updateVariables();
                 return 
             }
-            endingMessage.innerText = 'player 2 won!';
+            message.innerText = `${player2} won!`;
             updateVariables();
             return 
 
         }
-        endingMessage.innerText = 'it\'s a tie!';
+        message.innerText = 'it\'s a tie!';
         updateVariables();
+        return
     }
 
 
@@ -119,9 +153,12 @@ function clickAction() {
         if (lastPlay === '' || lastPlay === 'X') {
             this.innerText = 'O';
             lastPlay = 'O';
+            message.innerText = `${player2}'s turn`
+
         } else if (lastPlay === 'O') {
             this.innerText = 'X';
             lastPlay = 'X';
+            message.innerText = `${player1}'s turn`
         };
 
     }

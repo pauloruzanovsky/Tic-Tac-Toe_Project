@@ -67,13 +67,19 @@ html {
     font-family: Poppins;
 }
 
+:root {
+--mainwidth: 600px;
+
+}
 
 .gameBoard {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    width: 150px;
     background: black;
     gap: 5px;
+    width: calc(var(--mainwidth)*2/3);
+    height: calc(var(--mainwidth)*2/3);
+    margin-bottom: calc(var(--mainwidth)/20);
 }
 
 .gameBoard>*{
@@ -81,67 +87,82 @@ html {
     align-items: center;
     justify-items: center;
     background: gold;
-    font-size: 60px;
-    width: 130px;
-    height: 130px;
+    font-size: calc(var(--mainwidth)/10);
+    width: calc(var(--mainwidth)*130/600);
+    height: calc(var(--mainwidth)*130/600);
 
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+    display: grid;
+    place-content: center;
     background: rgb(255, 235, 123);
     padding: 10px;
 }
 
 .main {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: gold;
-    padding: 30px;
-    width: 600px;
+    padding: calc(var(--mainwidth)/20);
+    width: var(--mainwidth);
     box-shadow: 0px 0px 5px 0px black;
 }
 header {
     background: rgb(0, 0, 0);
-    width: 600px;
-    font-size: 60px;
-    padding: 10px;
+    width: var(--mainwidth);
+    font-size: calc(var(--mainwidth)/10);
+    padding: calc(var(--mainwidth)/30);
     color: white;
     box-shadow: 0px 0px 5px 0px black;
     font-weight: 500;
 }
 
-
-.gameBoard {
-    width: 400px;
-    height: 400px;
-    margin-bottom: 30px;
+.menu-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: gold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--mainwidth)/30);
+    z-index: -1;
 }
 
-.position:active {
-    transition: 0.5s;
+.menu-overlay.active {
+    z-index: 9;
+
 }
 
-.ending-message {
-    height: 50px;
+input {
+    width: 30%;
+    height: 40px;
+    border-radius: 10px;
+    background: rgb(216, 184, 0);
+    border: 1px solid goldenrod;
 }
 
-.reset {
-    width: 100px;
-    height: 30px;
+.message {
+    height: calc(var(--mainwidth)/10);
+}
+
+button {
+    padding: 10px;
     border-radius: 10px;
     background: white;
 }
 
-.reset:hover {
+button:hover {
     box-shadow: 0px 0px 5px 0px black;
 }
 
-.reset:active {
+button:active {
     background: black;
     color: white;
 }
@@ -155,4 +176,4 @@ header {
     justify-content: center;
     width: 100%;
   
-  }
+}

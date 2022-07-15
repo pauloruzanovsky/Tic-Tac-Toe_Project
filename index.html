@@ -11,6 +11,12 @@
 <body>
     <header>tic-tac-toe</header>
     <div class="main">
+      <form class="menu-overlay active">
+        <div class="menu-title">Who is going to play?</div>
+          <input type="text" id="player-1" placeholder="Player 1" required>
+          <input type="text" id="player-2" placeholder="Player 2" required>
+        <button class="start-game">start game</button>
+      </form>
       <div class="gameBoard">
           <div class="position topLeft"></div>
           <div class="position topCenter"></div>
@@ -22,8 +28,11 @@
           <div class="position bottomCenter"></div>
           <div class="position bottomRight"></div>
       </div>
-      <div class="ending-message"></div>
-      <button class="reset" type="reset">Reset</button>
+      <div class="message"></div>
+      <div class="buttons">
+        <button class="reset" type="reset">Reset</button>
+        <button class="back-to-menu">Back to menu</button>
+      </div>
   </div>
   <footer class="footer">developed by ruza</footer>
 </body>
